@@ -45,7 +45,6 @@ body[data-theme="purple"] .bg-gradient {
   text-align: center;
 }
 
-
 .title {
   font-size: clamp(2.5rem, 4vw, 3.2rem);
   font-weight: 900;
@@ -61,6 +60,7 @@ body[data-theme="purple"] .bg-gradient {
 
 #statusCard p {
   font-size: 1.5rem;
+  margin-top: 10px;
 }
 
 #icon {
@@ -68,7 +68,6 @@ body[data-theme="purple"] .bg-gradient {
   margin-bottom: 1rem;
   filter: drop-shadow(0 10px 25px rgba(0, 0, 0, .4));
 }
-
 
 .option-btn {
   padding: 0.75rem 1.5rem;
@@ -103,7 +102,6 @@ body[data-theme="purple"] .bg-gradient {
       black 85%,
       transparent);
 }
-
 
 .marquee-text {
   display: inline-block;
