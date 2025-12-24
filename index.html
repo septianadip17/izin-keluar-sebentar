@@ -11,23 +11,37 @@
 
 <body>
 
-  <!-- Background Parallax Layer -->
-  <div class="bg-layer"></div>
+  <!-- ======================
+       SELECT SCREEN
+       ====================== -->
+  <section class="select-screen" id="selectScreen">
+    <h1>Mau izin ke mana?</h1>
 
-  <!-- Main Content -->
-  <main class="status-card">
-    <div class="status-icon">🍽️</div>
+    <div class="options">
+      <button data-type="toilet">🚻 Toilet</button>
+      <button data-type="makan">🍽️ Cari Makan</button>
+      <button data-type="other">📝 Other</button>
+    </div>
 
-    <h1 class="status-title">Sedang Keluar</h1>
-    <p class="status-subtitle">
-      Izin keluar sebentar (makan / ke toilet)
-    </p>
+    <input type="text" id="customText" placeholder="Tulis izin lain..." />
+  </section>
+
+  <!-- ======================
+       STATUS SCREEN
+       ====================== -->
+  <div class="bg-layer hidden"></div>
+
+  <main class="status-card hidden" id="statusCard">
+    <div class="status-icon" id="statusIcon">🍽️</div>
+    <h1 class="status-title" id="statusTitle">Sedang Keluar</h1>
+    <p class="status-subtitle" id="statusSubtitle"></p>
 
     <div class="running-text">
-      <span>Terima kasih 🙏 Saya akan segera kembali ke meja.</span>
+      <span>Terima kasih 🙏 Saya akan segera kembali.</span>
     </div>
   </main>
 
+  <script src="js/app.js"></script>
   <script src="js/parallax.js"></script>
 </body>
 
