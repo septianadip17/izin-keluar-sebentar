@@ -1,197 +1,110 @@
-/* =========================
-   DESIGN SYSTEM
-   ========================= */
-:root {
-  --bg-1: #020617;
-  --bg-2: #020617;
-  --accent: #38bdf8;
-  --accent-soft: rgba(56, 189, 248, 0.35);
-
-  --card-bg: rgba(255, 255, 255, 0.08);
-  --border-soft: rgba(255, 255, 255, 0.18);
-
-  --text-main: #f8fafc;
-  --text-muted: #cbd5f5;
-
-  --radius-xl: 22px;
-  --blur: 18px;
-  --shadow-xl: 0 40px 80px rgba(0, 0, 0, 0.55);
-}
-
-/* =========================
-   RESET & BASE
-   ========================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-}
-
-body {
-  min-height: 100vh;
-  background:
-    radial-gradient(1200px circle at top left, #0ea5e933, transparent 40%),
-    linear-gradient(135deg, var(--bg-1), var(--bg-2));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-main);
-  overflow: hidden;
-}
-
-/* =========================
-   PARALLAX BACKGROUND
-   ========================= */
-.bg-layer {
+/* ===== BACKGROUND THEME ===== */
+.bg-gradient {
   position: absolute;
   inset: -20%;
-  background:
-    radial-gradient(circle at top right, rgba(255,255,255,0.12), transparent 45%),
-    radial-gradient(circle at bottom left, rgba(56,189,248,0.15), transparent 50%);
-  filter: blur(40px);
-  transition: transform 0.15s linear;
-  z-index: 0;
+  filter: blur(120px);
+  transition: background 0.4s ease;
 }
 
-.hidden {
-  display: none;
+/* THEME COLORS */
+body[data-theme="blue"] .bg-gradient {
+  background: radial-gradient(circle at top left,
+    rgba(56,189,248,.35),
+    transparent 60%);
 }
 
-/* =========================
-   SELECT SCREEN
-   ========================= */
-.select-screen {
+body[data-theme="green"] .bg-gradient {
+  background: radial-gradient(circle at top left,
+    rgba(34,197,94,.35),
+    transparent 60%);
+}
+
+body[data-theme="purple"] .bg-gradient {
+  background: radial-gradient(circle at top left,
+    rgba(168,85,247,.35),
+    transparent 60%);
+}
+
+/* ===== UI REUSABLE ===== */
+.card {
   position: relative;
-  z-index: 2;
-  background: var(--card-bg);
-  backdrop-filter: blur(var(--blur));
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-xl);
-  padding: 3.5rem 4.5rem;
+  z-index: 10;
+  padding: 3rem;
+  border-radius: 1.5rem;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 30px 80px rgba(0,0,0,.6);
   text-align: center;
-  animation: fadeUp 0.6s ease;
 }
 
-.select-screen h1 {
-  font-size: 2.6rem;
+.title {
+  font-size: 2.5rem;
   font-weight: 800;
-  margin-bottom: 2.5rem;
-  letter-spacing: -0.02em;
-}
-
-.options {
-  display: flex;
-  gap: 1.2rem;
-  justify-content: center;
   margin-bottom: 2rem;
 }
 
-.options button {
-  padding: 1rem 1.8rem;
-  border-radius: 999px;
-  border: 1px solid var(--border-soft);
-  background: rgba(255,255,255,0.08);
-  color: var(--text-main);
-  font-size: 1.1rem;
-  cursor: pointer;
-  backdrop-filter: blur(8px);
-  transition: all 0.25s ease;
+.option-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
+  transition: 0.2s;
+}
+.option-btn:hover {
+  background: rgba(255,255,255,.25);
 }
 
-.options button:hover {
-  background: var(--accent-soft);
-  border-color: var(--accent);
-  transform: translateY(-3px) scale(1.03);
-}
-
-#customText {
+.input {
+  margin-top: 1.5rem;
   width: 100%;
-  max-width: 420px;
-  padding: 0.9rem 1.2rem;
-  border-radius: 14px;
-  border: 1px solid var(--border-soft);
-  background: rgba(255,255,255,0.06);
-  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
   outline: none;
-  font-size: 1rem;
 }
 
-#customText::placeholder {
-  color: var(--text-muted);
-}
-
-/* =========================
-   STATUS CARD
-   ========================= */
-.status-card {
-  position: relative;
-  z-index: 2;
-  background: var(--card-bg);
-  backdrop-filter: blur(var(--blur));
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--border-soft);
-  box-shadow: var(--shadow-xl);
-  padding: 4rem 5rem;
-  text-align: center;
-  max-width: 700px;
-  width: 90%;
-  animation: fadeUp 0.7s ease;
-  transition: transform 0.12s linear;
-}
-
-.status-icon {
-  font-size: 4rem;
-  margin-bottom: 1.2rem;
-}
-
-.status-title {
-  font-size: 3rem;
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  margin-bottom: 0.6rem;
-}
-
-.status-subtitle {
-  font-size: 1.3rem;
-  color: var(--text-muted);
-  margin-bottom: 2.6rem;
-}
-
-/* =========================
-   RUNNING TEXT
-   ========================= */
-.running-text {
-  border-top: 1px solid var(--border-soft);
-  padding-top: 1.2rem;
-  overflow: hidden;
-}
-
-.running-text span {
-  display: inline-block;
-  padding-left: 100%;
+/* MARQUEE */
+.marquee {
+  margin-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,.2);
+  padding-top: 1rem;
   white-space: nowrap;
   animation: marquee 14s linear infinite;
-  color: var(--accent);
-  font-size: 1.15rem;
 }
 
-/* =========================
-   ANIMATION
-   ========================= */
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-100%); }
+  from { transform: translateX(100%); }
+  to   { transform: translateX(-100%); }
 }
 
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(25px) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+/* FLOATING */
+.floating-btn {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.25);
+}
+
+/* THEME SWITCH */
+.theme-switch {
+  position: fixed;
+  left: 1.5rem;
+  bottom: 1.5rem;
+  display: flex;
+  gap: 0.75rem;
+}
+.theme-btn {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 9999px;
+}
+
+/* PARALLAX */
+.parallax {
+  transition: transform 0.12s linear;
 }
