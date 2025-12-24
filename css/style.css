@@ -29,20 +29,46 @@ body[data-theme="purple"] .bg-gradient {
 .card {
   position: relative;
   z-index: 10;
-  padding: 3rem;
-  border-radius: 1.5rem;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, .6);
+  width: min(92vw, 820px);
+  min-height: 420px;
+  padding: 4rem 4.5rem;
+  border-radius: 2rem;
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, .14),
+      rgba(255, 255, 255, .04));
+  -webkit-backdrop-filter: blur(28px);
+  backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, .25);
+  box-shadow:
+    0 40px 120px rgba(0, 0, 0, .65),
+    inset 0 1px 0 rgba(255, 255, 255, .25);
   text-align: center;
 }
 
+
 .title {
-  font-size: 2.5rem;
-  font-weight: 800;
-  margin-bottom: 2rem;
+  font-size: clamp(2.5rem, 4vw, 3.2rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 2.5rem;
 }
+
+#statusCard h1 {
+  font-size: clamp(3rem, 5vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+#statusCard p {
+  font-size: 1.5rem;
+}
+
+#icon {
+  font-size: 6rem;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 10px 25px rgba(0, 0, 0, .4));
+}
+
 
 .option-btn {
   padding: 0.75rem 1.5rem;
@@ -68,13 +94,16 @@ body[data-theme="purple"] .bg-gradient {
 
 /* ===== MARQUEE (SAFE INSIDE CARD) ===== */
 .marquee-wrapper {
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, .2);
-  overflow: hidden;
-  /* 🔑 kunci penting */
-  position: relative;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, .25);
+  mask-image: linear-gradient(to right,
+      transparent,
+      black 15%,
+      black 85%,
+      transparent);
 }
+
 
 .marquee-text {
   display: inline-block;
@@ -98,14 +127,16 @@ body[data-theme="purple"] .bg-gradient {
 
 /* FLOATING */
 .floating-btn {
-  position: fixed;
-  right: 1.5rem;
-  bottom: 1.5rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, .15);
-  border: 1px solid rgba(255, 255, 255, .25);
+  font-size: 1.1rem;
+  padding: 1rem 2rem;
+  backdrop-filter: blur(18px);
+  transition: transform .2s, background .2s;
 }
+
+.floating-btn:hover {
+  transform: translateY(-2px);
+}
+
 
 /* THEME SWITCH */
 .theme-switch {
@@ -125,4 +156,15 @@ body[data-theme="purple"] .bg-gradient {
 /* PARALLAX */
 .parallax {
   transition: transform 0.12s linear;
+}
+
+@media (min-width: 1400px) {
+  .card {
+    max-width: 980px;
+    min-height: 480px;
+  }
+
+  #icon {
+    font-size: 7rem;
+  }
 }

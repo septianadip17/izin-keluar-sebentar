@@ -12,7 +12,7 @@ const bg       = document.getElementById('bg');
 /* ===== STATUS DATA ===== */
 const STATUS = {
   toilet: { icon: '🚻', title: 'Ke Toilet', subtitle: 'Izin sebentar ke toilet' },
-  makan:  { icon: '🍽️', title: 'Cari Makan', subtitle: 'Izin keluar sebentar untuk makan' }
+  makan:  { icon: '🍽️', title: 'Cari Makan', subtitle: 'Izin keluar sebentar untuk cari makan' }
 };
 
 /* ===== STATUS FLOW ===== */
