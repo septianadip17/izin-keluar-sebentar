@@ -6,134 +6,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Status Meja</title>
 
-  <style>
-    /* =========================
-       DESIGN VARIABLES
-       ========================= */
-    :root {
-      --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      --card-bg: rgba(255, 255, 255, 0.12);
-      --text-primary: #ffffff;
-      --text-secondary: #d1d5db;
-      --accent: #38bdf8;
-
-      --radius: 20px;
-      --blur: 12px;
-      --shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-    }
-
-    /* =========================
-       BASE STYLE
-       ========================= */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
-    }
-
-    body {
-      min-height: 100vh;
-      background: var(--bg-gradient);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-primary);
-    }
-
-    /* =========================
-       CARD COMPONENT
-       ========================= */
-    .status-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(var(--blur));
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 3rem 4rem;
-      text-align: center;
-      max-width: 600px;
-      width: 100%;
-      animation: fadeUp 0.8s ease;
-    }
-
-    .status-icon {
-      font-size: 3.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .status-title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .status-subtitle {
-      font-size: 1.25rem;
-      color: var(--text-secondary);
-      margin-bottom: 2rem;
-    }
-
-    /* =========================
-       MARQUEE REPLACEMENT
-       ========================= */
-    .running-text {
-      position: relative;
-      overflow: hidden;
-      border-top: 1px solid rgba(255, 255, 255, 0.25);
-      padding-top: 1rem;
-      font-size: 1.1rem;
-    }
-
-    .running-text span {
-      display: inline-block;
-      padding-left: 100%;
-      animation: slide 14s linear infinite;
-      color: var(--accent);
-      white-space: nowrap;
-    }
-
-    /* =========================
-       ANIMATION
-       ========================= */
-    @keyframes slide {
-      from {
-        transform: translateX(0);
-      }
-
-      to {
-        transform: translateX(-100%);
-      }
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
-  <!-- =========================
-      MAIN COMPONENT
-      ========================= -->
+
+  <!-- Background Parallax Layer -->
+  <div class="bg-layer"></div>
+
+  <!-- Main Content -->
   <main class="status-card">
     <div class="status-icon">🍽️</div>
 
     <h1 class="status-title">Sedang Keluar</h1>
-    <p class="status-subtitle">Izin keluar sebentar (makan / ke toilet)</p>
+    <p class="status-subtitle">
+      Izin keluar sebentar (makan / ke toilet)
+    </p>
 
     <div class="running-text">
       <span>Terima kasih 🙏 Saya akan segera kembali ke meja.</span>
     </div>
   </main>
+
+  <script src="js/parallax.js"></script>
 </body>
 
 </html>
