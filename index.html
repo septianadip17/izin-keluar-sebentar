@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Status Meja</title>
 
   <!-- Tailwind CDN -->
@@ -11,8 +12,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body data-theme="blue"
-  class="min-h-screen flex items-center justify-center bg-slate-950 text-white overflow-hidden">
+<body data-theme="blue" class="min-h-screen flex items-center justify-center bg-slate-950 text-white overflow-hidden">
 
   <!-- BACKGROUND -->
   <div id="bg" class="bg-gradient parallax"></div>
@@ -27,8 +27,7 @@
       <button data-type="other" class="option-btn">📝 Other</button>
     </div>
 
-    <input id="otherInput" class="input hidden"
-      placeholder="Tulis izin lainnya lalu tekan Enter..." />
+    <input id="otherInput" class="input hidden" placeholder="Tulis izin lainnya lalu tekan Enter..." />
   </section>
 
   <!-- STATUS CARD -->
@@ -37,9 +36,12 @@
     <h1 id="title" class="text-5xl font-black"></h1>
     <p id="subtitle" class="text-xl text-white/80"></p>
 
-    <div class="marquee">
-      Terima kasih 🙏 Saya akan segera kembali
+    <div class="marquee-wrapper">
+      <span class="marquee-text">
+        Terima kasih 🙏🏾 Saya akan segera kembali
+      </span>
     </div>
+
   </main>
 
   <!-- FLOATING BUTTON -->
@@ -56,4 +58,5 @@
 
   <script src="js/app.js"></script>
 </body>
+
 </html>
