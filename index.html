@@ -1,48 +1,210 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Status Meja</title>
 
-  <link rel="stylesheet" href="css/style.css" />
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            theme: {
+              blue: '#38bdf8',
+              green: '#22c55e',
+              purple: '#a855f7'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .parallax {
+      transition: transform 0.12s linear;
+    }
+  </style>
 </head>
 
-<body>
+<body class="min-h-screen flex items-center justify-center bg-slate-950 text-white overflow-hidden">
 
-  <!-- ======================
-       SELECT SCREEN
-       ====================== -->
-  <section class="select-screen" id="selectScreen">
-    <h1>Mau izin ke mana?</h1>
+  <!-- BACKGROUND -->
+  <div id="bg"
+    class="absolute inset-[-20%] blur-3xl bg-gradient-to-br from-theme-blue/30 via-transparent to-theme-purple/30 parallax">
+  </div>
 
-    <div class="options">
-      <button data-type="toilet">🚻 Toilet</button>
-      <button data-type="makan">🍽️ Cari Makan</button>
-      <button data-type="other">📝 Other</button>
+  <!-- SELECT SCREEN -->
+  <section id="selectScreen"
+    class="relative z-10 bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl p-12 text-center space-y-8">
+
+    <h1 class="text-4xl font-extrabold tracking-tight">
+      Mau izin ke mana?
+    </h1>
+
+    <div class="flex gap-4 justify-center">
+      <button data-type="toilet" class="option-btn">🚻 Toilet</button>
+      <button data-type="makan" class="option-btn">🍽️ Makan</button>
+      <button data-type="other" class="option-btn">📝 Other</button>
     </div>
 
-    <input type="text" id="customText" placeholder="Tulis izin lain..." />
+    <input id="otherInput"
+      class="hidden w-full max-w-md mx-auto px-4 py-3 rounded-xl bg-white/10 border border-white/20 outline-none"
+      placeholder="Tulis izin lainnya..." />
   </section>
 
-  <!-- ======================
-       STATUS SCREEN
-       ====================== -->
-  <div class="bg-layer hidden"></div>
+  <!-- STATUS CARD -->
+  <main id="statusCard"
+    class="hidden relative z-10 bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl p-16 text-center space-y-6 parallax">
 
-  <main class="status-card hidden" id="statusCard">
-    <div class="status-icon" id="statusIcon">🍽️</div>
-    <h1 class="status-title" id="statusTitle">Sedang Keluar</h1>
-    <p class="status-subtitle" id="statusSubtitle"></p>
+    <div id="icon" class="text-6xl">🍽️</div>
+    <h1 id="title" class="text-5xl font-black tracking-tight"></h1>
+    <p id="subtitle" class="text-xl text-white/80"></p>
 
-    <div class="running-text">
-      <span>Terima kasih 🙏 Saya akan segera kembali.</span>
+    <div class="border-t border-white/20 pt-4 overflow-hidden">
+      <span class="inline-block animate-[marquee_14s_linear_infinite] text-theme-blue whitespace-nowrap">
+        Terima kasih 🙏 Saya akan segera kembali
+      </span>
     </div>
   </main>
 
-  <script src="js/app.js"></script>
-  <script src="js/parallax.js"></script>
-</body>
+  <!-- FLOATING BUTTON -->
+  <button id="resetBtn"
+    class="hidden fixed bottom-6 right-6 bg-white/20 backdrop-blur-xl border border-white/20 rounded-full px-6 py-3 shadow-xl hover:bg-white/30 transition">
+    🔄 Ganti Status
+  </button>
 
+  <!-- THEME SWITCH -->
+  <div class="fixed bottom-6 left-6 flex gap-3">
+    <button data-theme="blue" class="theme-btn bg-theme-blue"></button>
+    <button data-theme="green" class="theme-btn bg-theme-green"></button>
+    <button data-theme="purple" class="theme-btn bg-theme-purple"></button>
+  </div>
+
+<script>
+/* ======================
+   BUTTON STYLE HELPER
+====================== */
+document.querySelectorAll('.option-btn').forEach(btn => {
+  btn.className = `
+    option-btn px-6 py-3 rounded-full border border-white/20
+    bg-white/10 hover:bg-white/20 transition text-lg
+  `;
+});
+
+document.querySelectorAll('.theme-btn').forEach(btn => {
+  btn.className += ' w-6 h-6 rounded-full';
+});
+
+/* ======================
+   STATUS LOGIC
+====================== */
+const selectScreen = document.getElementById('selectScreen');
+const statusCard = document.getElementById('statusCard');
+const resetBtn = document.getElementById('resetBtn');
+const otherInput = document.getElementById('otherInput');
+
+const icon = document.getElementById('icon');
+const title = document.getElementById('title');
+const subtitle = document.getElementById('subtitle');
+
+const STATUS = {
+  toilet: { icon: '🚻', title: 'Ke Toilet', subtitle: 'Izin sebentar ke toilet' },
+  makan: { icon: '🍽️', title: 'Cari Makan', subtitle: 'Izin keluar sebentar untuk makan' }
+};
+
+document.querySelectorAll('.option-btn').forEach(btn => {
+  btn.onclick = () => {
+    const type = btn.dataset.type;
+
+    if (type === 'other') {
+      otherInput.classList.remove('hidden');
+      otherInput.focus();
+      return;
+    }
+
+    showStatus(STATUS[type]);
+  };
+});
+
+otherInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && otherInput.value.trim()) {
+    showStatus({
+      icon: '📝',
+      title: 'Sedang Keluar',
+      subtitle: otherInput.value
+    });
+  }
+});
+
+function showStatus(data) {
+  icon.textContent = data.icon;
+  title.textContent = data.title;
+  subtitle.textContent = data.subtitle;
+
+  selectScreen.classList.add('hidden');
+  statusCard.classList.remove('hidden');
+  resetBtn.classList.remove('hidden');
+
+  enableFullscreen();
+  keepAwake();
+}
+
+resetBtn.onclick = () => {
+  statusCard.classList.add('hidden');
+  resetBtn.classList.add('hidden');
+  selectScreen.classList.remove('hidden');
+  otherInput.classList.add('hidden');
+  otherInput.value = '';
+};
+
+/* ======================
+   THEME SWITCH
+====================== */
+document.querySelectorAll('.theme-btn').forEach(btn => {
+  btn.onclick = () => {
+    document.documentElement.style.setProperty(
+      '--tw-gradient-from',
+      btn.dataset.theme === 'green' ? '#22c55e55' :
+      btn.dataset.theme === 'purple' ? '#a855f755' : '#38bdf855'
+    );
+  };
+});
+
+/* ======================
+   FULLSCREEN + WAKE LOCK
+====================== */
+function enableFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen?.();
+  }
+}
+
+async function keepAwake() {
+  try {
+    if ('wakeLock' in navigator) {
+      await navigator.wakeLock.request('screen');
+    }
+  } catch {}
+}
+
+/* ======================
+   PARALLAX
+====================== */
+const bg = document.getElementById('bg');
+
+document.addEventListener('mousemove', e => {
+  const x = (e.clientX / window.innerWidth - 0.5) * 40;
+  const y = (e.clientY / window.innerHeight - 0.5) * 40;
+
+  bg.style.transform = `translate(${x}px, ${y}px)`;
+  statusCard.style.transform = `translate(${x/2}px, ${y/2}px)`;
+});
+</script>
+
+</body>
 </html>
