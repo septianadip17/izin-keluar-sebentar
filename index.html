@@ -18,7 +18,7 @@
   <div id="bg" class="bg-gradient parallax"></div>
 
   <!-- SELECT SCREEN -->
-  <section id="selectScreen" class="card">
+  <section id="selectScreen" class="card animate-in">
     <h1 class="title">Mau izin ke mana?</h1>
 
     <div class="flex gap-4 justify-center">
@@ -32,9 +32,9 @@
 
   <!-- STATUS CARD -->
   <main id="statusCard" class="card hidden parallax">
-    <div id="icon" class="text-6xl"></div>
-    <h1 id="title" class="text-5xl font-black"></h1>
-    <p id="subtitle" class="text-xl text-white/80"></p>
+    <div id="icon"></div>
+    <h1 id="title"></h1>
+    <p id="subtitle"></p>
 
     <div class="marquee-wrapper">
       <span class="marquee-text">
@@ -44,8 +44,8 @@
   </main>
 
   <!-- FLOATING BUTTON -->
-  <button id="resetBtn" class="floating-btn hidden">
-    🔄 Ganti Status
+  <button id="resetBtn" class="floating-btn hidden" title="Ganti Status">
+    🔄
   </button>
 
   <!-- THEME SWITCH -->

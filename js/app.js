@@ -1,27 +1,32 @@
-/* ===== ELEMENTS ===== */
-const selectScreen = document.getElementById('selectScreen');
-const statusCard   = document.getElementById('statusCard');
-const resetBtn     = document.getElementById('resetBtn');
-const otherInput   = document.getElementById('otherInput');
+const selectScreen = document.getElementById("selectScreen");
+const statusCard = document.getElementById("statusCard");
+const resetBtn = document.getElementById("resetBtn");
+const otherInput = document.getElementById("otherInput");
 
-const icon     = document.getElementById('icon');
-const title    = document.getElementById('title');
-const subtitle = document.getElementById('subtitle');
-const bg       = document.getElementById('bg');
+const icon = document.getElementById("icon");
+const title = document.getElementById("title");
+const subtitle = document.getElementById("subtitle");
+const bg = document.getElementById("bg");
 
-/* ===== STATUS DATA ===== */
 const STATUS = {
-  toilet: { icon: '🚻', title: 'Ke Toilet', subtitle: 'Izin sebentar ke toilet' },
-  makan:  { icon: '🍽️', title: 'Cari Makan', subtitle: 'Izin keluar sebentar untuk cari makan' }
+  toilet: {
+    icon: "🚻",
+    title: "Ke Toilet",
+    subtitle: "Izin sebentar ke toilet",
+  },
+  makan: {
+    icon: "🍽️",
+    title: "Cari Makan",
+    subtitle: "Izin keluar sebentar untuk makan",
+  },
 };
 
-/* ===== STATUS FLOW ===== */
-document.querySelectorAll('.option-btn').forEach(btn => {
+/* ===== FLOW ===== */
+document.querySelectorAll(".option-btn").forEach((btn) => {
   btn.onclick = () => {
     const type = btn.dataset.type;
-
-    if (type === 'other') {
-      otherInput.classList.remove('hidden');
+    if (type === "other") {
+      otherInput.classList.remove("hidden");
       otherInput.focus();
       return;
     }
@@ -29,12 +34,12 @@ document.querySelectorAll('.option-btn').forEach(btn => {
   };
 });
 
-otherInput.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && otherInput.value.trim()) {
+otherInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && otherInput.value.trim()) {
     showStatus({
-      icon: '📝',
-      title: 'Sedang Keluar',
-      subtitle: otherInput.value
+      icon: "📝",
+      title: "Sedang Keluar",
+      subtitle: otherInput.value,
     });
   }
 });
@@ -44,29 +49,51 @@ function showStatus(data) {
   title.textContent = data.title;
   subtitle.textContent = data.subtitle;
 
-  selectScreen.classList.add('hidden');
-  statusCard.classList.remove('hidden');
-  resetBtn.classList.remove('hidden');
+  selectScreen.classList.add("hidden");
+  statusCard.classList.remove("hidden");
+  statusCard.classList.add("animate-in");
+
+  resetBtn.classList.remove("hidden");
+  resetBtn.classList.add("animate-in");
+
+  document.body.classList.add("tv-mode");
 
   enableFullscreen();
   keepAwake();
 }
 
-resetBtn.onclick = reset;
-
 function reset() {
-  statusCard.classList.add('hidden');
-  resetBtn.classList.add('hidden');
-  selectScreen.classList.remove('hidden');
-  otherInput.classList.add('hidden');
-  otherInput.value = '';
+  statusCard.classList.add("hidden");
+  resetBtn.classList.add("hidden");
+  selectScreen.classList.remove("hidden");
+
+  otherInput.classList.add("hidden");
+  otherInput.value = "";
+
+  document.body.classList.remove("tv-mode");
 }
 
-/* ===== THEME SWITCH ===== */
-document.querySelectorAll('.theme-btn').forEach(btn => {
+resetBtn.onclick = reset;
+
+/* ===== THEME ===== */
+document.querySelectorAll(".theme-btn").forEach((btn) => {
   btn.onclick = () => {
-    document.body.setAttribute('data-theme', btn.dataset.theme);
+    document.body.setAttribute("data-theme", btn.dataset.theme);
   };
+});
+
+/* ===== SHORTCUT ===== */
+document.addEventListener("keydown", (e) => {
+  if (
+    (e.key === "Escape" || e.key.toLowerCase() === "r") &&
+    !resetBtn.classList.contains("hidden")
+  ) {
+    reset();
+  }
+
+  if (e.key.toLowerCase() === "t") {
+    document.body.classList.toggle("tv-mode");
+  }
 });
 
 /* ===== FULLSCREEN + WAKE ===== */
@@ -75,20 +102,18 @@ function enableFullscreen() {
     document.documentElement.requestFullscreen?.();
   }
 }
-
 async function keepAwake() {
   try {
-    if ('wakeLock' in navigator) {
-      await navigator.wakeLock.request('screen');
+    if ("wakeLock" in navigator) {
+      await navigator.wakeLock.request("screen");
     }
   } catch {}
 }
 
 /* ===== PARALLAX ===== */
-document.addEventListener('mousemove', e => {
+document.addEventListener("mousemove", (e) => {
   const x = (e.clientX / innerWidth - 0.5) * 40;
   const y = (e.clientY / innerHeight - 0.5) * 40;
-
   bg.style.transform = `translate(${x}px,${y}px)`;
-  statusCard.style.transform = `translate(${x/2}px,${y/2}px)`;
+  statusCard.style.transform = `translate(${x / 2}px,${y / 2}px)`;
 });
