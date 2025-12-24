@@ -125,16 +125,32 @@ body[data-theme="purple"] .bg-gradient {
   }
 }
 
-/* FLOATING */
+/* ===== FLOATING BUTTON ===== */
 .floating-btn {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   font-size: 1.1rem;
+  font-weight: 500;
   padding: 1rem 2rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, .15);
+  border: 1px solid rgba(255, 255, 255, .25);
   backdrop-filter: blur(18px);
-  transition: transform .2s, background .2s;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, .45);
+  transition:
+    transform .2s ease,
+    background .2s ease;
 }
 
 .floating-btn:hover {
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, .25);
+  transform: translateY(-3px);
 }
 
 
